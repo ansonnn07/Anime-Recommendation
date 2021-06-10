@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Bookmarks
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="container-lg">
+
+  <div class="row g-0 mt-3">
+    <h1 class="col p-2 mb-2 anime-heading border-bottom border-custom">
+      Bookmarks
+    </h1>
+  </div>
+
+  <!-- Pagination at top and bottom -->
+  <div class="text-end mb-2">
+    {% if bookmarks.pages == 1 %}
+    {% else %}
+    <a href="{{ url_for('views.bookmarks', page=bookmarks.prev_num) }}" class="btn btn-custom-secondary 
+       {% if bookmarks.page == 1 %} disabled {% endif %}">
+      &laquo;
+    </a>
+    {% for page_num in bookmarks.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+    {% if page_num %}
+    {% if bookmarks.page == page_num %}
+    <a class="btn btn-custom" href="{{ url_for('views.bookmarks', page=page_num) }}">{{ page_num }}</a>
+    {% else %}
+    <a class="btn btn-custom-secondary" href="{{ url_for('views.bookmarks', page=page_num) }}">{{ page_num }}</a>
+    {% endif %}
+    {% else %}
+    ...
+    {% endif %}
+    {% endfor %}
+    <a href="{{ url_for('views.bookmarks', page=bookmarks.next_num) }}" class="btn btn-custom-secondary 
+       {% if bookmarks.page == bookmarks.pages %} disabled {% endif %}">
+      &raquo;
+    </a>
+    {% endif %}
+  </div>
+
+  <table class="table table-bordered table-bg border-custom mb-2">
+    <thead>
+      <tr>
+        <th scope="col" class="number-col">#</th>
+        <th scope="col" class="img-col">Image</th>
+        <th scope="col" class="anime-col">Anime</th>
+        <th scope="col" class="status-col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for df_row in df.itertuples() %}
+      <tr>
+        <th scope="row" class="number-cell">
+          {{ df_row.Index + 1 }}
+        </th>
+        <td class="img-cell">
+          <a href="{{ url_for('views.anime', anime_id=df_row.MAL_ID) }}" class="">
+            <img src="{{ df_row.img_url }}" alt="anime image">
+          </a>
+        </td>
+        <td class="anime-cell">
+          <div>
+            <a href="{{ url_for('views.anime', anime_id=df_row.MAL_ID) }}" class="">
+              {{ df_row.Name|e }}
+            </a>
+          </div>
+          <div class="d-flex align-items-center mt-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-star-fill rating-star ms-0" viewBox="0 0 16 16">
+              <path
+                d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+            </svg>
+            <span class="rating-score fs-5">{{ df_row.Score }}</span>
+          </div>
+        </td>
+
+        <td class="status-cell">
+          <form method="POST">
+            {{ remove_bookmark_form.hidden_tag() }}
+            <input id="df_length" name="df_length" type="hidden" value="{{ df|length }}">
+            <input id="anime_id_to_remove" name="anime_id_to_remove" type="hidden" value="{{ df_row.MAL_ID }}">
+            {{ remove_bookmark_form.submit(class="btn btn-custom remove-button") }}
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <!-- https://betterprogramming.pub/simple-flask-pagination-example-4190b12c2e2e -->
+  <div class="text-end mb-4">
+    {% if bookmarks.pages == 1 %}
+    {% else %}
+    <a href="{{ url_for('views.bookmarks', page=bookmarks.prev_num) }}" class="btn btn-custom-secondary 
+       {% if bookmarks.page == 1 %} disabled {% endif %}">
+      &laquo;
+    </a>
+    {% for page_num in bookmarks.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+    {% if page_num %}
+    {% if bookmarks.page == page_num %}
+    <a class="btn btn-custom" href="{{ url_for('views.bookmarks', page=page_num) }}">{{ page_num }}</a>
+    {% else %}
+    <a class="btn btn-custom-secondary" href="{{ url_for('views.bookmarks', page=page_num) }}">{{ page_num }}</a>
+    {% endif %}
+    {% else %}
+    ...
+    {% endif %}
+    {% endfor %}
+    <a href="{{ url_for('views.bookmarks', page=bookmarks.next_num) }}" class="btn btn-custom-secondary 
+       {% if bookmarks.page == bookmarks.pages %} disabled {% endif %}">
+      &raquo;
+    </a>
+    {% endif %}
+  </div>
+
+  {% endblock %}

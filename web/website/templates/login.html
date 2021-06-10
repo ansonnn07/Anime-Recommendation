@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+
+<div class="container-md">
+  <div id="form-custom">
+    <div class="anime-heading mt-0 mb-4 fs-3 border-bottom border-custom">
+      Login
+    </div>
+    <form method="POST">
+      {{ form.hidden_tag() }}
+      <div class="mb-3">
+        <!-- <label for="username" class="form-label">Username</label> -->
+        <!-- <input type="text" class="form-control" id="username"> -->
+        {{ form.username.label(class="form-label") }}
+        {% if form.username.errors %}
+        {{ form.username(class="form-control is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.username.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %}
+        {{ form.username(class="form-control", id="username", placeholder="Username") }}
+        {% endif %}
+      </div>
+      <div class="mb-3">
+        <!-- <label for="password" class="form-label">Password</label> -->
+        <!-- <input type="password" class="form-control" id="password"> -->
+        {{ form.password.label(class="form-label") }}
+        {% if form.password.errors %}
+        {{ form.password(class="form-control is-invalid", id="password") }}
+        <div class="invalid-feedback">
+          {% for error in form.password.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %}
+        {{ form.password(class="form-control", id="password", placeholder="Password") }}
+        {% endif %}
+      </div>
+      <div class="mb-3 form-check">
+        <input type="checkbox" onclick=show_password() class="form-check-input" id="passwordCheck">
+        <label class="form-check-label" for="passwordCheck">Show Password</label>
+      </div>
+      <!-- <button type="submit" class="btn btn-custom-secondary">Login</button> -->
+      {{ form.submit(class="btn btn-custom-secondary")}}
+    </form>
+    <footer id="form-footer-text">
+      Don't have an account?
+      <a href="{{ url_for('auth.register') }}" class="custom-link">Register here</a>.
+    </footer>
+  </div>
+</div>
+
+{% endblock %}

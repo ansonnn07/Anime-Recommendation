@@ -1,0 +1,9 @@
+.vscode
+.ipynb_checkpoints
+__pycache__
+
+**/data/animelist.csv
+**/data/cleaned_animelist.csv
+**/website/*.db
+
+.env

@@ -1,0 +1,17 @@
+joblib
+numpy
+pandas
+flask==1.1.2
+werkzeug==1.0.1
+flask-sqlalchemy
+flask_wtf
+wtforms
+flask_bcrypt
+flask_login
+flask_cache
+flask_caching
+flask_injector
+psycopg2
+gunicorn
+tensorflow-gpu==2.4.1
+keras==2.4.3

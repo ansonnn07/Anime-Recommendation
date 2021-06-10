@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}
+About the Website
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <div id="about-page">
+    <section class="about">
+      <div class="my-3">
+        <h1 class="col p-2 anime-heading border-bottom border-custom">
+          About the Website
+        </h1>
+      </div>
+      <p>
+        This website was built to recommend Animes using a backend system that was built with an AI model, specifically
+        a collaborative filtering model.
+      </p>
+      <p>
+        It was built with the motivation of showcasing the ability of AI model to predict similar Animes based on how
+        well the users have rated the other Animes compared to the current Anime that was asked for
+        recommendations. In simple words, the AI model will give Anime recommendations that are similar to the current
+        Anime based on most of the user preferences.
+      </p>
+      <p>
+        If you are interested to know more about the technical details. Feel free to visit the <a class="custom-link"
+          href="https://github.com/ansonnn07/Anime-Recommendation" target="_blank">GitHub repo</a>.
+      </p>
+    </section>
+
+    <section class="guide">
+      <div class="mt-4 mb-3">
+        <h1 class="col p-2 anime-heading border-bottom border-custom">
+          How to Use the Website
+        </h1>
+      </div>
+      <p>
+        Just try to search for Animes by name at the top right search box!
+        Or simply click on any Animes at the Home Page.
+        Then try to ask for recommendations by clicking the "Recommend Similar Animes" button!
+      </p>
+      <p>
+        You can also register for an account and use the feature of "Bookmarking" Animes that you might want to save for
+        later. And don't forget your password as this website has not implemented a password reset function yet!
+      </p>
+      <p>
+        <strong>NOTE:</strong> The login function might be gone when you are visiting this website, because I might have
+        already taken it down as it would use up unnecessary resources.
+      </p>
+    </section>
+  </div>
+</div>
+
+{% endblock %}
