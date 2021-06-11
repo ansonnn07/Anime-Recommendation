@@ -2,6 +2,7 @@ version: "3.7"
 services:
   web:
     build: web
+    container_name: web
     restart: always
     ports:
       - 5000:5000
@@ -11,6 +12,7 @@ services:
       - flask_network
   proxy:
     build: proxy
+    container_name: proxy
     restart: always
     ports:
       - 80:80

@@ -5,7 +5,7 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /code
 COPY requirements.txt /code/
 # Install packages before copying the rest of the files
-#  to reduce successive build times when installation is cached
+#  to reduce successive build times after installation is cached
 RUN pip install -r requirements.txt
 COPY . /code/
 
