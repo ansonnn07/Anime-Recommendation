@@ -8,7 +8,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(length=30),
                          nullable=False, unique=True)
-    password_hash = db.Column(db.String(length=50),
+    password_hash = db.Column(db.String(length=100),
                               nullable=False)
     bookmarks = db.relationship('Bookmark', backref='owner', lazy=True)
 

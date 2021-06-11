@@ -53,4 +53,4 @@ def create_database(app):
     if not os.path.exists(os.path.join('website', Config.DB_NAME)) \
             and not os.path.exists('/var/lib/postgresql/data'):
         db.create_all(app=app)
-        print('\n[INFO] Created Database!\n')
+        print('\n[INFO] Created Database!!!\n')

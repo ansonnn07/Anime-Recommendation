@@ -13,5 +13,5 @@ flask_caching
 flask_injector
 psycopg2
 gunicorn
-tensorflow-gpu==2.4.1
-keras==2.4.3
+tensorflow
+keras
