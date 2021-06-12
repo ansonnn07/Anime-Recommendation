@@ -1,7 +1,6 @@
-FROM python:3.7
+FROM python:3.7-slim
 
 ENV PYTHONUNBUFFERED 1
-# Remove this env variable when deploying with Heroku
 ENV PORT=5000
 
 RUN mkdir /code
@@ -12,5 +11,5 @@ COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 COPY . /code/
 
-# If using Heroku, must use Heroku's own PORT env variable
+# If using Heroku, Heroku will overwrite this PORT env variable
 CMD gunicorn --bind 0.0.0.0:$PORT -w 3 main:app
