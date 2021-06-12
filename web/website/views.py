@@ -45,6 +45,29 @@ def get_top_animes(top_k=48):
     return df.head(top_k)
 
 
+def find_bookmark(anime_id, return_bookmarked=False):
+    # Only check for bookmark if user is logged in
+    bookmark, bookmarked = None, None
+    if current_user.is_authenticated:
+        bookmark = Bookmark.query.filter_by(
+            user_id=current_user.id, anime_id=anime_id).first()
+        bookmarked = True if bookmark else False
+    if return_bookmarked:
+        return bookmarked
+    return bookmark
+
+
+def add_or_remove_bookmark(anime_id):
+    bookmark = find_bookmark(anime_id)
+    if bookmark:
+        db.session.delete(bookmark)
+        db.session.commit()
+    else:
+        bookmark = Bookmark(user_id=current_user.id, anime_id=anime_id)
+        db.session.add(bookmark)
+        db.session.commit()
+
+
 @bp.route('/home')
 @bp.route('/')
 def home():
@@ -77,24 +100,12 @@ def anime(anime_id):
         df = df.loc[df['MAL_ID'] == anime_id]
         anime_info = df_row2dict(df)
 
-        bookmark = Bookmark.query.filter_by(
-            user_id=current_user.id, anime_id=anime_id).first()
-        bookmarked = True if bookmark else False
+        bookmarked = find_bookmark(anime_id, return_bookmarked=True)
 
         return render_template('anime.html', anime_info=anime_info, bookmarked=bookmarked)
 
     if request.method == "POST":
-        bookmark = Bookmark.query.filter_by(
-            user_id=current_user.id, anime_id=anime_id).first()
-        if bookmark:
-            if bookmark.user_id == current_user.id:
-                db.session.delete(bookmark)
-                db.session.commit()
-        else:
-            bookmark = Bookmark(user_id=current_user.id, anime_id=anime_id)
-            print(f"\nAnime ID bookmarked: {anime_id}\n")
-            db.session.add(bookmark)
-            db.session.commit()
+        add_or_remove_bookmark(anime_id)
         return redirect(url_for('views.anime', anime_id=anime_id))
 
 
@@ -113,8 +124,7 @@ def recommend(anime_id, model: InitializedModel):
         anime_info = df_row2dict(anime_row)
         rec_df.reset_index(drop=True, inplace=True)
 
-        bookmark = Bookmark.query.filter_by(anime_id=anime_id).first()
-        bookmarked = True if bookmark else False
+        bookmarked = find_bookmark(anime_id, return_bookmarked=True)
 
         return render_template('recommend.html',
                                anime_info=anime_info,
@@ -122,15 +132,7 @@ def recommend(anime_id, model: InitializedModel):
                                rec_df=rec_df)
 
     if request.method == "POST":
-        bookmark = Bookmark.query.filter_by(anime_id=anime_id).first()
-        if bookmark:
-            if bookmark.user_id == current_user.id:
-                db.session.delete(bookmark)
-                db.session.commit()
-        else:
-            bookmark = Bookmark(anime_id=anime_id, user_id=current_user.id)
-            db.session.add(bookmark)
-            db.session.commit()
+        add_or_remove_bookmark(anime_id)
         return redirect(url_for('views.recommend', anime_id=anime_id))
 
 
@@ -173,7 +175,7 @@ def bookmarks():
             page = 1
 
         anime_id = request.form.get('anime_id_to_remove', type=int)
-        bookmark = Bookmark.query.filter_by(anime_id=anime_id).first()
+        bookmark = find_bookmark(anime_id)
         if bookmark:
             print(f"\nRemoving bookmark for Anime ID: {anime_id}\n")
             db.session.delete(bookmark)
