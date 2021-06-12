@@ -96,10 +96,13 @@ class Model:
         return weights
 
 
-class InitializedModel(Model):
+class InitializedModel:
     @inject
-    def __init__(self):
-        super().__init__()
+    def __init__(self, model: Model):
+        self.anime_id_to_idx = model.anime_id_to_idx
+        self.anime_idx_to_id = model.anime_idx_to_id
+        self.anime_weights = model.anime_weights
+        self.df = model.df
 
     def get_recommendation(self, anime_query, k=30):
         """Generate recommendations based on given Anime ID.

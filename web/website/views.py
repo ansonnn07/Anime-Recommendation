@@ -77,19 +77,21 @@ def anime(anime_id):
         df = df.loc[df['MAL_ID'] == anime_id]
         anime_info = df_row2dict(df)
 
-        bookmark = Bookmark.query.filter_by(anime_id=anime_id).first()
+        bookmark = Bookmark.query.filter_by(
+            user_id=current_user.id, anime_id=anime_id).first()
         bookmarked = True if bookmark else False
 
         return render_template('anime.html', anime_info=anime_info, bookmarked=bookmarked)
 
     if request.method == "POST":
-        bookmark = Bookmark.query.filter_by(anime_id=anime_id).first()
+        bookmark = Bookmark.query.filter_by(
+            user_id=current_user.id, anime_id=anime_id).first()
         if bookmark:
             if bookmark.user_id == current_user.id:
                 db.session.delete(bookmark)
                 db.session.commit()
         else:
-            bookmark = Bookmark(anime_id=anime_id, user_id=current_user.id)
+            bookmark = Bookmark(user_id=current_user.id, anime_id=anime_id)
             print(f"\nAnime ID bookmarked: {anime_id}\n")
             db.session.add(bookmark)
             db.session.commit()
@@ -140,7 +142,7 @@ def bookmarks():
     if request.method == "GET":
         page = request.args.get('page', 1, type=int)
         per_page = 10
-        bookmarks = Bookmark.query.order_by(
+        bookmarks = Bookmark.query.filter_by(user_id=current_user.id).order_by(
             Bookmark.date_created.desc()).paginate(page=page, max_per_page=per_page)
 
         # Create a dictionary to sort the df by the order of the bookmarks

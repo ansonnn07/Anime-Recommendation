@@ -24,10 +24,13 @@ class User(db.Model, UserMixin):
     def check_password(self, input_password):
         return bcrypt.check_password_hash(self.password_hash, input_password)
 
+    def __repr__(self):
+        return f'User ID: {self.id}, username: {self.username}'
+
 
 class Bookmark(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
-    anime_id = db.Column(db.Integer(), nullable=False, unique=True)
+    anime_id = db.Column(db.Integer(), nullable=False)
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
     user_id = db.Column(db.Integer(), db.ForeignKey(
         'user.id'), nullable=True, default=None)

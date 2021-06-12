@@ -8,11 +8,14 @@ from flask_caching import Cache
 from flask_injector import FlaskInjector
 
 from .config import Config
-from .dependencies import configure
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})
+
+# Ensure tensorflow only run on CPU for inference
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+print("\n[INFO] USING CPU FOR TENSORFLOW\n")
 
 
 def create_app():
@@ -40,6 +43,8 @@ def create_app():
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
+
+    from .dependencies import configure
 
     # Setup Flask injector for Recommendation Model
     # Referring https://levelup.gitconnected.com/python-dependency-injection-with-flask-injector-50773d451a32
