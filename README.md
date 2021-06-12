@@ -19,7 +19,7 @@ Visit the website [here](http://34.87.106.210/)!
 The website is accessible [here](http://34.87.106.210/) until September 2021.
 
 
-DEMO VIDEO TO BE INSERTED HERE !!
+[![website demo](website_demo.png)](https://youtu.be/SgnyXSIhGR8)
 
 
 ## Main Notebooks for References
