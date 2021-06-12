@@ -50,7 +50,10 @@ def create_app():
 
 
 def create_database(app):
-    if not os.path.exists(os.path.join('website', Config.DB_NAME)) \
-            and not os.path.exists('/var/lib/postgresql/data'):
+    # IT SEEMS LIKE YOU CAN JUST KEEP CREATING DB in production mode
+    #  and still won't overwrite the initially created docker volume.
+    # The only way to reset the database is by removing the mounted
+    #  docker volume.
+    if not os.path.exists(os.path.join('website', Config.DB_NAME)):
         db.create_all(app=app)
         print('\n[INFO] Created Database!!!\n')

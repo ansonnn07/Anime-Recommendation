@@ -6,4 +6,4 @@ app = create_app()
 # Run this command to run the application in DEBUG mode
 # docker run -p 5000:5000 -e DEBUG=1 <image-name>
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=Config.DEBUG)
+    app.run(host='0.0.0.0', port=Config.PORT, debug=Config.DEBUG)

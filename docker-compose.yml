@@ -5,13 +5,8 @@ services:
     container_name: web
     restart: always
     ports:
-      - 5000:5000
-    environment:
-      - DEBUG=${DEBUG}
-      - SECRET_KEY=${SECRET_KEY}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASS=${POSTGRES_PASS}
-      - POSTGRES_DB=${POSTGRES_DB}
+      - 5000:${PORT}
+    env_file: .env
     networks:
       - flask_network
   proxy:
