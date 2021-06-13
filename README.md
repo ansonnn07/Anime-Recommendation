@@ -46,7 +46,7 @@ You can watch the video for the **DEMO of the website** here:
 - If you only want to deploy the individual website using the DEBUG config (using SQLite3 instead of PostgreSQL), then you can just run the following code to build the image and create a Docker container for it:
 
 ```
-cd website
+cd web
 docker build -t <image-name> .
 docker run <image-name>
 ```
