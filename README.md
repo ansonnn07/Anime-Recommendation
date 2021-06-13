@@ -44,6 +44,9 @@ All the notebooks are inside the `web` folder. And the scripts used for building
 | [web_functions.ipynb](https://github.com/ansonnn07/Anime-Recommendation/blob/main/web/web_functions.ipynb)                     | Testing some functions used in building the Flask routes. |
 
 ## Instructions for Deploying with Docker
+**NOTE**: If you don't have Docker installed in your machine. Then follow the [instructions here at the docs](https://docs.docker.com/get-docker/) to install first.
+
+
 **Deploying with the individual Website Dockerfile using DEBUG config**
 - If you only want to deploy the individual website using the DEBUG config (using SQLite3 instead of PostgreSQL), then you can just run the following code to build the image and create a Docker container for it:
 
