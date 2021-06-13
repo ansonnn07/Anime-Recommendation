@@ -7,7 +7,12 @@ Visit the website [here](http://34.87.106.210/)!
 
 <img height="60" src="https://i.pinimg.com/originals/42/3b/97/423b97b41c8b420d28e84f9b07a530ec.png" alt="html-css-javascript">  <img height="60" src="https://i.pinimg.com/originals/c1/78/5d/c1785d50a929254419fa4aad0560b058.png" alt="bootstrap">  <img height="60" src="https://i.pinimg.com/originals/40/58/3b/40583b9485486616cc310cf5c5282b85.png" alt="google-cloud-platform">
 
-## Summary
+<br>
+
+**DISCLAIMER:** This project's main priority is the **recommendation system** (**backend**) and ***not*** the the webpage functionalities (**frontend**). Therefore, the website will have some limitations in terms of the frontend components.
+
+## Summary of the Project
+- I was wondering how to find the best Animes based on my favorite Animes, and I'm not sure where to find. Then I thought, "Why not create one myself?" That's basically the motivation for this project.
 - The Anime recommendation model used in the Website was built with a collaborative filtering model using the Anime dataset scraped from [MyAnimeList](https://myanimelist.net/) and shared in [Kaggle](https://www.kaggle.com/hernan4444/anime-recommendation-database-2020).
 - The model was trained in Kaggle kernel using TPUs and the entire process can be referred in the notebook here: [cf_embedding.ipynb](https://github.com/ansonnn07/Anime-Recommendation/blob/main/web/cf_embedding.ipynb).
 - The website is then deployed using Docker in a Virtual Machine (VM) instance created in the Google Compute Engine, which is an Infrastructure as a Service (IaaS) component offered by Google Cloud Platform.
