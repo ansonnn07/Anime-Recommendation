@@ -52,7 +52,7 @@ cd web
 docker build -t <image-name> .
 docker run <image-name>
 ```
-Then visit the website at [**localhost**](localhost).
+Then visit the website at [**localhost**](http://localhost).
 - To stop the Docker container:
 
 Find the Docker CONTAINER ID with:
@@ -70,7 +70,7 @@ docker kill <container-id>
 ```
 docker-compose up -d
 ```
-Then visit the website at [**localhost**](localhost).
+Then visit the website at [**localhost**](http://localhost).
 - To stop it:
 ```
 docker-compose down
