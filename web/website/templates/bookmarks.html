@@ -81,6 +81,7 @@ Bookmarks
         <td class="status-cell">
           <form method="POST">
             {{ remove_bookmark_form.hidden_tag() }}
+            <!-- inputs with type="hidden" are used to send data to backend-->
             <input id="df_length" name="df_length" type="hidden" value="{{ df|length }}">
             <input id="anime_id_to_remove" name="anime_id_to_remove" type="hidden" value="{{ df_row.MAL_ID }}">
             {{ remove_bookmark_form.submit(class="btn btn-custom remove-button") }}
